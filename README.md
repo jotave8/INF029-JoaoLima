@@ -1,5 +1,5 @@
 # projeto-escola
 
-- [ ] algum bagulho
+- [a] algum bagulho
 - [ ] tendeu
 - [ ] 
