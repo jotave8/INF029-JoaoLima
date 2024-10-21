@@ -378,6 +378,12 @@ int cadastrarAluno(Aluno listaAluno[], int qtdAluno){
 	if(qtdAluno == TAM_ALUNO){
 		return LISTA_CHEIA;
 	}else{
+	    getchar();
+	    printf("Informe o nome:\n");
+	    char nome[80];
+	    fgets(nome, sizeof(nome), stdin);
+        nome[strcspn(nome, "\n")] = 0;
+        strcpy(listaAluno[qtdAluno].nome, nome);
 		printf("Digite a matricula:\n");
 		int matricula;
 		scanf("%d",&matricula);
@@ -412,7 +418,7 @@ void listarAluno(Aluno listaAluno[], int qtdAluno){
 	}else{
 		for (int i = 0; i < qtdAluno; i++){
  			if (listaAluno[i].ativo == 1){
-				printf("Matricula: %d   Sexo: %c\n", listaAluno[i].matricula,listaAluno[i].sexo);
+				printf("Nome: %s    Matricula: %d   Sexo: %c\n",listaAluno[i].nome, listaAluno[i].matricula,listaAluno[i].sexo);
 			}
 		}
 	}
@@ -491,6 +497,12 @@ int cadastrarProfessor(Professor listaProfessor[], int qtdProfessor){
 	if(qtdProfessor == TAM_PROFESSOR){
 		return LISTA_CHEIA;
 	}else{
+	    getchar();
+	    printf("Informe o nome:\n");
+	    char nome[80];
+	    fgets(nome, sizeof(nome), stdin);
+        nome[strcspn(nome, "\n")] = 0;
+        strcpy(listaProfessor[qtdProfessor].nome, nome);
 		printf("Digite a matricula\n");
 		int matricula;
 		scanf("%d",&matricula);
@@ -526,7 +538,7 @@ void listarProfessor(Professor listaProfessor[], int qtdProfessor){
 	}else{
 		for (int i = 0; i < qtdProfessor; i++){
  			if (listaProfessor[i].ativo == 1){
-				printf("Matricula: %d   Sexo: %c\n", listaProfessor[i].matricula, listaProfessor[i].sexo);
+				printf("Nome: %s    Matricula: %d   Sexo: %c\n",listaProfessor[i].nome, listaProfessor[i].matricula, listaProfessor[i].sexo);
 			}
 		}
 	}
@@ -606,6 +618,12 @@ int cadastrarDisciplina(Disciplina listaDisciplina[], int qtdDisciplina){
 	if(qtdDisciplina == TAM_DISCIPLINA){
 		return LISTA_CHEIA;
 	}else{
+	    getchar();
+	    printf("Informe o nome:\n");
+	    char nome[50];
+	    fgets(nome, sizeof(nome), stdin);
+        nome[strcspn(nome, "\n")] = 0;
+        strcpy(listaDisciplina[qtdDisciplina].nome, nome);
 		printf("Digite o codigo:\n");
 		int codigo;
 		scanf("%d",&codigo);
@@ -624,7 +642,7 @@ void listarDisciplina(Disciplina listaDisciplina[], int qtdDisciplina){
 	}else{
 		for (int i = 0; i < qtdDisciplina; i++){
  			if (listaDisciplina[i].ativo == 1){
-				printf("Codigo: %d\n", listaDisciplina[i].codigo);
+				printf("Nome: %s    Codigo: %d\n", listaDisciplina[i].nome, listaDisciplina[i].codigo);
 			}
 		}
 	}    
