@@ -437,13 +437,53 @@ int atualizarAluno(Aluno listaAluno[], int qtdAluno){
 		for (int i = 0; i < qtdAluno; i++){
 			if (matricula == listaAluno[i].matricula){
 				//atualização
-				printf("Digite a nova matricula\n");
-				int novamatricula;
-				scanf("%d",&novamatricula);
-				if (novamatricula < 0){
-		            return MATRICULA_INVALIDA;
-            	}
-            	listaAluno[i].matricula = novamatricula;
+				char opcao;
+				printf("Deseja atualizar o nome?(S/N)\n");
+				scanf(" %c", &opcao);
+				getchar();
+				if (opcao == 'S' || opcao == 's'){
+				    char novonome[80];
+				    printf("Digite a novo nome:\n");
+				    getchar();
+				    fgets(novonome, sizeof(novonome), stdin);
+                    novonome[strcspn(novonome, "\n")] = 0;
+                    strcpy(listaAluno[i].nome, novonome);
+                    
+				}else if(opcao != 'N' && opcao != 'n'){
+				    return OPCAO_INVALIDA;
+				}
+				
+				getchar();
+				printf("Deseja atualizar a matricula?(S/N)\n");
+				scanf("%c", &opcao);
+				if (opcao == 'S' || opcao == 's'){
+    				printf("Digite a nova matricula\n");
+    				int novamatricula;
+    				scanf("%d",&novamatricula);
+    				if (novamatricula < 0){
+    		            return MATRICULA_INVALIDA;
+                	}
+                	listaAluno[i].matricula = novamatricula;
+				}else if(opcao != 'N' && opcao != 'n'){
+				    return OPCAO_INVALIDA;
+				}
+				getchar();
+				printf("Deseja atualizar o sexo?(S/N)\n");
+				scanf("%c", &opcao);
+				if(opcao == 'S' || opcao == 's'){
+				    getchar();
+				    printf("Digite o sexo:\n");
+				    char novosexo;
+				    scanf("%c",&novosexo);
+				    if (novosexo == 'M' || novosexo == 'm' || novosexo == 'F' || novosexo == 'f') {
+                        listaAluno[i].sexo = novosexo;
+                    } else{
+                        return OPCAO_INVALIDA;
+                    }		
+				}else if(opcao != 'N' && opcao != 'n'){
+				    return OPCAO_INVALIDA;
+				}
+            
 				achou = 1;
 				break; 
 			}
