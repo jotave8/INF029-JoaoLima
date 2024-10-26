@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #define TAM_ALUNO 10
 #define TAM_PROFESSOR 5
 #define TAM_DISCIPLINA 10
@@ -149,6 +150,9 @@ int main (void){
 							    case MATRICULA_INEXISTENTE:{
 							        printf("Matricula inexistente\n");
 							        break;
+							    }
+							    case OPCAO_INVALIDA:{
+							        printf("Opcao invalida\n");
 							    }
 							}
 							break;
@@ -401,7 +405,7 @@ int cadastrarAluno(Aluno listaAluno[], int qtdAluno){
 	 	listaAluno[qtdAluno].matricula = matricula;
         char sexo;
 		getchar();
-        printf("Digite o sexo (M/F): ");
+        printf("Digite o sexo (M/F):\n");
         scanf("%c", &sexo);
     
         if (sexo == 'M' || sexo == 'm' || sexo == 'F' || sexo == 'f') {
@@ -597,13 +601,52 @@ int atualizarProfessor(Professor listaProfessor[], int qtdProfessor){
 		for (int i = 0; i < qtdProfessor; i++){
 			if (matricula == listaProfessor[i].matricula){
 				//atualização
-				printf("Digite a nova matricula\n");
-				int novamatricula;
-				scanf("%d",&novamatricula);
-				if (novamatricula < 0){
-		            return MATRICULA_INVALIDA;
-            	}
-            	listaProfessor[i].matricula = novamatricula;
+                char opcao;
+				printf("Deseja atualizar o nome?(S/N)\n");
+				scanf(" %c", &opcao);
+				getchar();
+				if (opcao == 'S' || opcao == 's'){
+				    char novonome[80];
+				    printf("Digite a novo nome:\n");
+				    getchar();
+				    fgets(novonome, sizeof(novonome), stdin);
+                    novonome[strcspn(novonome, "\n")] = 0;
+                    strcpy(listaProfessor[i].nome, novonome);
+                    
+				}else if(opcao != 'N' && opcao != 'n'){
+				    return OPCAO_INVALIDA;
+				}
+				
+				getchar();
+				printf("Deseja atualizar a matricula?(S/N)\n");
+				scanf("%c", &opcao);
+				if (opcao == 'S' || opcao == 's'){
+    				printf("Digite a nova matricula\n");
+    				int novamatricula;
+    				scanf("%d",&novamatricula);
+    				if (novamatricula < 0){
+    		            return MATRICULA_INVALIDA;
+                	}
+                	listaProfessor[i].matricula = novamatricula;
+				}else if(opcao != 'N' && opcao != 'n'){
+				    return OPCAO_INVALIDA;
+				}
+				getchar();
+				printf("Deseja atualizar o sexo?(S/N)\n");
+				scanf("%c", &opcao);
+				if(opcao == 'S' || opcao == 's'){
+				    getchar();
+				    printf("Digite o sexo:\n");
+				    char novosexo;
+				    scanf("%c",&novosexo);
+				    if (novosexo == 'M' || novosexo == 'm' || novosexo == 'F' || novosexo == 'f') {
+                        listaProfessor[i].sexo = novosexo;
+                    } else{
+                        return OPCAO_INVALIDA;
+                    }		
+				}else if(opcao != 'N' && opcao != 'n'){
+				    return OPCAO_INVALIDA;
+				}
 				achou = 1;
 				break; 
 			}
