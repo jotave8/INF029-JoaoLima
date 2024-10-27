@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #define TAM_ALUNO 10
 #define TAM_PROFESSOR 5
 #define TAM_DISCIPLINA 10
@@ -19,7 +20,8 @@ typedef enum {
     EXCLUSAO_DISC_SUCESSO = -12,
     CODIGO_INVALIDO = -13,
     CODIGO_INEXISTENTE = -14,
-    OPCAO_INVALIDA = -15
+    OPCAO_INVALIDA = -15,
+    CPF_INVALIDO = -16
 } StatusCodigo;
 
 typedef struct alu{
@@ -27,7 +29,7 @@ typedef struct alu{
 	char sexo;
 	char nome [80];
 	char data_nasc[11];
-	int cpf;
+	char cpf[12];
 	int ativo;
 } Aluno;
 
@@ -36,7 +38,7 @@ typedef struct prof{
 	char sexo;
 	char nome [80];
 	int data_nasc;
-	int cpf;
+	char cpf[12];
 	int ativo;
 } Professor;
 
@@ -120,7 +122,11 @@ int main (void){
 							        break;
 							    }
 							    case OPCAO_INVALIDA:{
-							        printf("Opção Invalida\n");
+							        printf("Opção invalida\n");
+							        break;
+							    }
+							    case CPF_INVALIDO:{
+							        printf("CPF invalido\n");
 							        break;
 							    }
 							    case CAD_ALUNO_SUCESSO:{
@@ -380,6 +386,7 @@ int menuAluno(){
 	return opcaoAluno;
 }		
 int cadastrarAluno(Aluno listaAluno[], int qtdAluno){
+    int validarCPF(const char *cpf);
 	printf("Cadastrar Aluno\n");
 	if(qtdAluno == TAM_ALUNO){
 		return LISTA_CHEIA;
@@ -390,6 +397,16 @@ int cadastrarAluno(Aluno listaAluno[], int qtdAluno){
 	    fgets(nome, sizeof(nome), stdin);
         nome[strcspn(nome, "\n")] = 0;
         strcpy(listaAluno[qtdAluno].nome, nome);
+        
+        printf("Informe o CPF (somente números):\n");
+        char cpf[12];
+        fgets(cpf, sizeof(cpf), stdin);
+        cpf[strcspn(cpf, "\n")] = 0;
+        if (!validarCPF(cpf)) {
+            return CPF_INVALIDO;
+        }
+        strcpy(listaAluno[qtdAluno].cpf, cpf);
+        
 		printf("Digite a matricula:\n");
 		int matricula;
 		scanf("%d",&matricula);
@@ -424,7 +441,7 @@ void listarAluno(Aluno listaAluno[], int qtdAluno){
 	}else{
 		for (int i = 0; i < qtdAluno; i++){
  			if (listaAluno[i].ativo == 1){
-				printf("Nome: %s    Matricula: %d   Sexo: %c\n",listaAluno[i].nome, listaAluno[i].matricula,listaAluno[i].sexo);
+				printf("Nome: %s    Matricula: %d   Sexo: %c  CPF: %s\n",listaAluno[i].nome, listaAluno[i].matricula,listaAluno[i].sexo, listaAluno[i].cpf);
 			}
 		}
 	}
@@ -457,9 +474,24 @@ int atualizarAluno(Aluno listaAluno[], int qtdAluno){
 				    return OPCAO_INVALIDA;
 				}
 				
-				getchar();
+				printf("Deseja atualizar o CPF?(S/N)\n");
+				scanf(" %c", &opcao);
+				if (opcao == 'S' || opcao == 's'){
+				    char novocpf[12];
+				    printf("Digite a novo cpf:\n");
+				    getchar();
+				    fgets(novocpf, sizeof(novocpf), stdin);
+                    novocpf[strcspn(novocpf, "\n")] = 0;
+                    strcpy(listaAluno[i].cpf, novocpf);
+
+				}else if(opcao != 'N' && opcao != 'n'){
+				    return OPCAO_INVALIDA;
+				}
+				
+				
 				printf("Deseja atualizar a matricula?(S/N)\n");
-				scanf("%c", &opcao);
+				scanf(" %c", &opcao);
+				getchar();
 				if (opcao == 'S' || opcao == 's'){
     				printf("Digite a nova matricula\n");
     				int novamatricula;
@@ -471,9 +503,9 @@ int atualizarAluno(Aluno listaAluno[], int qtdAluno){
 				}else if(opcao != 'N' && opcao != 'n'){
 				    return OPCAO_INVALIDA;
 				}
-				getchar();
+
 				printf("Deseja atualizar o sexo?(S/N)\n");
-				scanf("%c", &opcao);
+				scanf(" %c", &opcao);
 				if(opcao == 'S' || opcao == 's'){
 				    getchar();
 				    printf("Digite o sexo:\n");
@@ -513,7 +545,9 @@ int excluirAluno(Aluno listaAluno[], int qtdAluno){
 				listaAluno[i].ativo = -1;
 				for (int j = i; j < qtdAluno - 1; j++){//esse metodo de mover para casa anterio se chama Shift
 					listaAluno[j].matricula = listaAluno[j+1].matricula;
+					strcpy(listaAluno[j].nome, listaAluno[j+1].nome);
 					listaAluno[j].sexo = listaAluno[j+1].sexo;
+					strcpy(listaAluno[j].cpf, listaAluno[j+1].cpf);
 					listaAluno[j].ativo = listaAluno[j+1].ativo;
 				}
 				achou = 1;
@@ -601,52 +635,13 @@ int atualizarProfessor(Professor listaProfessor[], int qtdProfessor){
 		for (int i = 0; i < qtdProfessor; i++){
 			if (matricula == listaProfessor[i].matricula){
 				//atualização
-                char opcao;
-				printf("Deseja atualizar o nome?(S/N)\n");
-				scanf(" %c", &opcao);
-				getchar();
-				if (opcao == 'S' || opcao == 's'){
-				    char novonome[80];
-				    printf("Digite a novo nome:\n");
-				    getchar();
-				    fgets(novonome, sizeof(novonome), stdin);
-                    novonome[strcspn(novonome, "\n")] = 0;
-                    strcpy(listaProfessor[i].nome, novonome);
-                    
-				}else if(opcao != 'N' && opcao != 'n'){
-				    return OPCAO_INVALIDA;
-				}
-				
-				getchar();
-				printf("Deseja atualizar a matricula?(S/N)\n");
-				scanf("%c", &opcao);
-				if (opcao == 'S' || opcao == 's'){
-    				printf("Digite a nova matricula\n");
-    				int novamatricula;
-    				scanf("%d",&novamatricula);
-    				if (novamatricula < 0){
-    		            return MATRICULA_INVALIDA;
-                	}
-                	listaProfessor[i].matricula = novamatricula;
-				}else if(opcao != 'N' && opcao != 'n'){
-				    return OPCAO_INVALIDA;
-				}
-				getchar();
-				printf("Deseja atualizar o sexo?(S/N)\n");
-				scanf("%c", &opcao);
-				if(opcao == 'S' || opcao == 's'){
-				    getchar();
-				    printf("Digite o sexo:\n");
-				    char novosexo;
-				    scanf("%c",&novosexo);
-				    if (novosexo == 'M' || novosexo == 'm' || novosexo == 'F' || novosexo == 'f') {
-                        listaProfessor[i].sexo = novosexo;
-                    } else{
-                        return OPCAO_INVALIDA;
-                    }		
-				}else if(opcao != 'N' && opcao != 'n'){
-				    return OPCAO_INVALIDA;
-				}
+				printf("Digite a nova matricula\n");
+				int novamatricula;
+				scanf("%d",&novamatricula);
+				if (novamatricula < 0){
+		            return MATRICULA_INVALIDA;
+            	}
+            	listaProfessor[i].matricula = novamatricula;
 				achou = 1;
 				break; 
 			}
@@ -787,4 +782,36 @@ int excluirDisciplina(Disciplina listaDisciplina[], int qtdDisciplina){
 		else
 		    return CODIGO_INEXISTENTE;
 	}    
+}
+int validarCPF(const char *cpf) {
+    // Verifica se o CPF tem exatamente 11 caracteres numéricos
+    if (strlen(cpf) != 11) return 0;
+    for (int i = 0; i < 11; i++) {
+        if (!isdigit(cpf[i])) return 0;
+    }
+
+    // Verificação de CPFs inválidos comuns (como "00000000000")
+    int iguais = 1;
+    for (int i = 1; i < 11 && iguais; i++) {
+        if (cpf[i] != cpf[0]) iguais = 0;
+    }
+    if (iguais) return 0;
+
+    // Cálculo dos dígitos verificadores
+    int soma = 0;
+    for (int i = 0; i < 9; i++) {
+        soma += (cpf[i] - '0') * (10 - i);
+    }
+    int digito1 = (soma * 10) % 11;
+    if (digito1 == 10) digito1 = 0;
+
+    soma = 0;
+    for (int i = 0; i < 10; i++) {
+        soma += (cpf[i] - '0') * (11 - i);
+    }
+    int digito2 = (soma * 10) % 11;
+    if (digito2 == 10) digito2 = 0;
+
+    // Comparação com os dígitos verificadores do CPF
+    return (digito1 == (cpf[9] - '0') && digito2 == (cpf[10] - '0'));
 }
