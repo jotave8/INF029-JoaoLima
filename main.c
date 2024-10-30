@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include "aluno.h"
 #define TAM_ALUNO 10
 #define TAM_PROFESSOR 5
 #define TAM_DISCIPLINA 10
@@ -24,14 +25,14 @@ typedef enum {
     CPF_INVALIDO = -16
 } StatusCodigo;
 
-typedef struct alu{
+/*typedef struct alu{
 	int matricula;
 	char sexo;
 	char nome [80];
 	char data_nasc[11];
 	char cpf[12];
 	int ativo;
-} Aluno;
+} Aluno;*/
 
 typedef struct prof{
     int matricula;
@@ -53,11 +54,11 @@ typedef struct disc{
 // prototipos das funções
 int menuGeral();
 
-int menuAluno();
+/*int menuAluno();
 int cadastrarAluno(Aluno listaAluno[], int qtdAluno);
 void listarAluno(Aluno listaAluno[], int qtdAluno);
 int atualizarAluno(Aluno listaAluno[], int qtdAluno);
-int excluirAluno(Aluno listaAluno[], int qtdAluno);
+int excluirAluno(Aluno listaAluno[], int qtdAluno);*/
 
 int menuProfessor();
 int cadastrarProfessor(Professor listaProfessor[], int qtdProfessor);
@@ -374,7 +375,7 @@ int menuGeral(){
 	return opcao;
 }
 
-int menuAluno(){
+/*int menuAluno(){
 	int opcaoAluno;
 	printf("0 - Voltar\n");
 	printf("1 - Cadastrar Aluno\n");
@@ -384,7 +385,7 @@ int menuAluno(){
 	scanf("%d", &opcaoAluno);
 	
 	return opcaoAluno;
-}		
+}	*	
 int cadastrarAluno(Aluno listaAluno[], int qtdAluno){
     int validarCPF(const char *cpf);
 	printf("Cadastrar Aluno\n");
@@ -559,7 +560,7 @@ int excluirAluno(Aluno listaAluno[], int qtdAluno){
 		else
 		    return MATRICULA_INEXISTENTE;
 	}
-}
+}*/
 
 int menuProfessor(){
     int opcaoProfessor;
