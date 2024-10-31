@@ -50,7 +50,6 @@ typedef struct disc{
     int ativo;
 } Disciplina;
 
-// prototipos das funções
 int menuGeral();
 
 int menuAluno();
@@ -71,12 +70,6 @@ void listarDisciplina(Disciplina listaDisciplina[], int qtdDisciplina);
 int atualizarDisciplina(Disciplina listaDisciplina[], int qtdDisciplina);
 int excluirDisciplina(Disciplina listaDisciplina[], int qtdDisciplina);
 
-// utilizar um gerador automatico de matricula
-// modularização (organização em módulos)
-// novos atributos na struct aluno e fazer a leitura desses atributos
-// validações 
-
-
 int main (void){
 	
 	Aluno listaAluno[TAM_ALUNO];
@@ -87,8 +80,7 @@ int main (void){
 	int qtdProfessor = 0;
 	int qtdDisciplina = 0;
 	
-	int sair = 0; //falso
-	
+	int sair = 0; 
 	while(!sair){
 		
 		opcao = menuGeral();
@@ -356,7 +348,6 @@ int main (void){
 	}
 }
 
-// funções 
 
 int menuGeral(){
 	int opcao;
@@ -457,7 +448,6 @@ int atualizarAluno(Aluno listaAluno[], int qtdAluno){
 	}else{
 		for (int i = 0; i < qtdAluno; i++){
 			if (matricula == listaAluno[i].matricula){
-				//atualização
 				char opcao;
 				printf("Deseja atualizar o nome?(S/N)\n");
 				scanf(" %c", &opcao);
@@ -541,9 +531,9 @@ int excluirAluno(Aluno listaAluno[], int qtdAluno){
 	}else{
 		for (int i = 0; i < qtdAluno; i++){
 			if (matricula == listaAluno[i].matricula){
-				//exclusão lógica
+				
 				listaAluno[i].ativo = -1;
-				for (int j = i; j < qtdAluno - 1; j++){//esse metodo de mover para casa anterio se chama Shift
+				for (int j = i; j < qtdAluno - 1; j++){
 					listaAluno[j].matricula = listaAluno[j+1].matricula;
 					strcpy(listaAluno[j].nome, listaAluno[j+1].nome);
 					listaAluno[j].sexo = listaAluno[j+1].sexo;
@@ -645,7 +635,6 @@ int atualizarProfessor(Professor listaProfessor[], int qtdProfessor){
 	}else{
 		for (int i = 0; i < qtdProfessor; i++){
 			if (matricula == listaProfessor[i].matricula){
-				//atualização
 				printf("Digite a nova matricula\n");
 				int novamatricula;
 				scanf("%d",&novamatricula);
@@ -674,9 +663,8 @@ int excluirProfessor(Professor listaProfessor[], int qtdProfessor){
 	}else{
 		for (int i = 0; i < qtdProfessor; i++){
 			if (matricula == listaProfessor[i].matricula){
-				//exclusão lógica
 				listaProfessor[i].ativo = -1;
-				for (int j = i; j < qtdProfessor - 1; j++){//esse metodo de mover para casa anterior se chama Shift
+				for (int j = i; j < qtdProfessor - 1; j++){
 					listaProfessor[j].matricula = listaProfessor[j+1].matricula;
 					listaProfessor[j].sexo = listaProfessor[j+1].sexo;
 					listaProfessor[j].ativo = listaProfessor[j+1].ativo;
@@ -749,7 +737,6 @@ int atualizarDisciplina(Disciplina listaDisciplina[], int qtdDisciplina){
 	}else{
 		for (int i = 0; i < qtdDisciplina; i++){
 			if (codigo == listaDisciplina[i].codigo){
-				//atualização
 				printf("Digite o novo codigo:\n");
 				int novocodigo;
 				scanf("%d",&novocodigo);
@@ -778,9 +765,8 @@ int excluirDisciplina(Disciplina listaDisciplina[], int qtdDisciplina){
 	}else{
 		for (int i = 0; i < qtdDisciplina; i++){
 			if (codigo == listaDisciplina[i].codigo){
-				//exclusão lógica
 				listaDisciplina[i].ativo = -1;
-				for (int j = i; j < qtdDisciplina - 1; j++){//esse metodo de mover para casa anterio se chama Shift
+				for (int j = i; j < qtdDisciplina - 1; j++){
 					listaDisciplina[j].codigo = listaDisciplina[j+1].codigo;
 					listaDisciplina[j].ativo = listaDisciplina[j+1].ativo;
 				}
@@ -795,20 +781,15 @@ int excluirDisciplina(Disciplina listaDisciplina[], int qtdDisciplina){
 	}    
 }
 int validarCPF(const char *cpf) {
-    // Verifica se o CPF tem exatamente 11 caracteres numéricos
     if (strlen(cpf) != 11) return 0;
     for (int i = 0; i < 11; i++) {
         if (!isdigit(cpf[i])) return 0;
     }
-
-    // Verificação de CPFs inválidos comuns (como "00000000000")
     int iguais = 1;
     for (int i = 1; i < 11 && iguais; i++) {
         if (cpf[i] != cpf[0]) iguais = 0;
     }
     if (iguais) return 0;
-
-    // Cálculo dos dígitos verificadores
     int soma = 0;
     for (int i = 0; i < 9; i++) {
         soma += (cpf[i] - '0') * (10 - i);
@@ -822,7 +803,5 @@ int validarCPF(const char *cpf) {
     }
     int digito2 = (soma * 10) % 11;
     if (digito2 == 10) digito2 = 0;
-
-    // Comparação com os dígitos verificadores do CPF
     return (digito1 == (cpf[9] - '0') && digito2 == (cpf[10] - '0'));
 }
