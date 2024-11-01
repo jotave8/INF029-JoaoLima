@@ -119,7 +119,7 @@ int excluirDisciplina(Disciplina listaDisciplina[], int qtdDisciplina) {
         listaDisciplina[i].ativo = -1;
         for (int j = i; j < qtdDisciplina - 1; j++) {
           listaDisciplina[j].codigo = listaDisciplina[j + 1].codigo;
-          listaDisciplina[j].nome = listaDisciplina [j + 1].nome;
+          strcpy(listaDisciplina[j].nome, listaDisciplina[j + 1].nome);
           listaDisciplina[j].ativo = listaDisciplina[j + 1].ativo;
         }
         achou = 1;
