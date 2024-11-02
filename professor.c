@@ -38,6 +38,13 @@ int cadastrarProfessor(Professor listaProfessor[], int qtdProfessor) {
     }
     strcpy(listaProfessor[qtdProfessor].cpf, cpf);
 
+    printf("Informe o dia de nascimento:\n");
+    scanf("%d", &listaProfessor[qtdProfessor].diaNascimento);
+    printf("Informe o mês de nascimento:\n");
+    scanf("%d", &listaProfessor[qtdProfessor].mesNascimento);
+    printf("Informe o ano de nascimento:\n");
+    scanf("%d", &listaProfessor[qtdProfessor].anoNascimento);
+
     printf("Digite a matricula\n");
     int matricula;
     scanf("%d", &matricula);
@@ -75,9 +82,10 @@ void listarProfessor(Professor listaProfessor[], int qtdProfessor) {
   } else {
     for (int i = 0; i < qtdProfessor; i++) {
       if (listaProfessor[i].ativo == 1) {
-        printf("Nome: %s    Matricula: %d   Sexo: %c  CPF: %s\n",
+        printf("Nome: %s    Matricula: %d   Sexo: %c  CPF: %s   Data de Nascimento: %02d/%02d/%d\n",
                listaProfessor[i].nome, listaProfessor[i].matricula,
-               listaProfessor[i].sexo, listaProfessor[i].cpf);
+               listaProfessor[i].sexo, listaProfessor[i].cpf,listaProfessor[i].diaNascimento, listaProfessor[i].mesNascimento,
+               listaProfessor[i].anoNascimento);
       }
     }
   }
@@ -139,6 +147,20 @@ int atualizarProfessor(Professor listaProfessor[], int qtdProfessor) {
           }
           listaProfessor[i].matricula = novamatricula;
         } else if (opcao != 'N') {
+          return OPCAO_INVALIDA;
+        }
+
+        printf("Deseja atualizar a data de nascimento?(S/N)\n");
+        scanf(" %c", &opcao);
+        opcao = toupper(opcao);
+        if (opcao == 'S') {
+            printf("Informe o novo dia de nascimento:\n");
+            scanf("%d", &listaProfessor[i].diaNascimento);
+            printf("Informe o novo mês de nascimento:\n");
+            scanf("%d", &listaProfessor[i].mesNascimento);
+            printf("Informe o novo ano de nascimento:\n");
+            scanf("%d", &listaProfessor[i].anoNascimento);
+        }else if (opcao != 'N') {
           return OPCAO_INVALIDA;
         }
 
