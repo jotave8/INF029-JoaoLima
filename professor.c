@@ -52,7 +52,7 @@ int cadastrarProfessor(Professor listaProfessor[], int qtdProfessor) {
     scanf("%d", &anoNascimento);
     listaProfessor[qtdProfessor].anoNascimento = anoNascimento;
     if (validarData(diaNascimento, mesNascimento, anoNascimento)){
-      return DATA_VALIDA;
+      return 0;
     }else{
       return DATA_INVALIDA;
     }
