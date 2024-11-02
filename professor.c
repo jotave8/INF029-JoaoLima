@@ -1,5 +1,6 @@
 #include "professor.h"
 #include "cpf.h"
+#include "data.h"
 #include "util.h"
 #include <ctype.h>
 #include <stdio.h>
@@ -50,6 +51,11 @@ int cadastrarProfessor(Professor listaProfessor[], int qtdProfessor) {
     int anoNascimento;
     scanf("%d", &anoNascimento);
     listaProfessor[qtdProfessor].anoNascimento = anoNascimento;
+    if (validarData(diaNascimento, mesNascimento, anoNascimento)){
+      return DATA_VALIDA;
+    }else{
+      return DATA_INVALIDA;
+    }
 
     printf("Digite a matricula\n");
     int matricula;

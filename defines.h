@@ -21,7 +21,9 @@ typedef enum {
   CODIGO_INVALIDO = -13,
   CODIGO_INEXISTENTE = -14,
   OPCAO_INVALIDA = -15,
-  CPF_INVALIDO = -16
+  CPF_INVALIDO = -16,
+  DATA_INVALIDA = -17,
+  DATA_VALIDA = -18
 } StatusCodigo;
 
 #endif

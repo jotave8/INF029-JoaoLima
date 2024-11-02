@@ -150,6 +150,10 @@ int main(void) {
             qtdProfessor++;
             break;
           }
+          case DATA_INVALIDA: {
+            printf("Data inválida\n");
+            break;
+          }
           case OPCAO_INVALIDA: {
             printf("Opcao invalida");
           }
@@ -163,37 +167,41 @@ int main(void) {
         case 3: {
           int retorno = atualizarProfessor(listaProfessor, qtdProfessor);
           switch (retorno) {
-          case MATRICULA_INVALIDA: {
-            printf("Matricula invalida\n");
-            break;
-          }
-          case ATUALIZACAO_PROF_SUCESSO: {
-            printf("Professor atualizado com sucesso\n");
-            break;
-          }
-          case MATRICULA_INEXISTENTE: {
-            printf("Matricula inexistente\n");
-            break;
-          }
+            case MATRICULA_INVALIDA: {
+              printf("Matricula invalida\n");
+              break;
+            }
+            case ATUALIZACAO_PROF_SUCESSO: {
+              printf("Professor atualizado com sucesso\n");
+              break;
+            }
+            case DATA_INVALIDA: {
+              printf("Data invalida\n");
+              break;
+            }
+            case MATRICULA_INEXISTENTE: {
+              printf("Matricula inexistente\n");
+              break;
+            }
           }
           break;
         }
         case 4: {
           int retorno = excluirProfessor(listaProfessor, qtdProfessor);
           switch (retorno) {
-          case MATRICULA_INVALIDA: {
-            printf("Matricula invalida\n");
-            break;
-          }
-          case EXCLUSAO_PROF_SUCESSO: {
-            printf("Professor excluido com sucesso\n");
-            qtdAluno--;
-            break;
-          }
-          case MATRICULA_INEXISTENTE: {
-            printf("Matricula inexistente\n");
-            break;
-          }
+            case MATRICULA_INVALIDA: {
+              printf("Matricula invalida\n");
+              break;
+            }
+            case EXCLUSAO_PROF_SUCESSO: {
+              printf("Professor excluido com sucesso\n");
+              qtdAluno--;
+              break;
+            }
+            case MATRICULA_INEXISTENTE: {
+              printf("Matricula inexistente\n");
+              break;
+            }
           }
           break;
         }
