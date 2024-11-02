@@ -231,7 +231,5 @@ int excluirProfessor(Professor listaProfessor[], int qtdProfessor) {
       return EXCLUSAO_PROF_SUCESSO;
     else
       return MATRICULA_INEXISTENTE;
-  }else if (opcao != 'N') {
-          return OPCAO_INVALIDA;
-        }
+  }
 }
