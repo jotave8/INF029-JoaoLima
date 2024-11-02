@@ -6,7 +6,9 @@ typedef struct prof {
   int matricula;
   char sexo;
   char nome[80];
-  int data_nasc;
+  int diaNascimento;
+  int mesNascimento;
+  int anoNascimento;
   char cpf[12];
   int ativo;
 } Professor;
