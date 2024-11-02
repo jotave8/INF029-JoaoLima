@@ -171,7 +171,7 @@ int atualizarProfessor(Professor listaProfessor[], int qtdProfessor) {
             printf("Informe o novo ano de nascimento:\n");
             int novoAnoNascimento;
             scanf("%d", &novoAnoNascimento);
-            listaProfessor[i].anoNascimento = novoAnoNascimento
+            listaProfessor[i].anoNascimento = novoAnoNascimento;
         }else if (opcao != 'N') {
           return OPCAO_INVALIDA;
         }
