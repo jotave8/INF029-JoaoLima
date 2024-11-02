@@ -39,11 +39,17 @@ int cadastrarProfessor(Professor listaProfessor[], int qtdProfessor) {
     strcpy(listaProfessor[qtdProfessor].cpf, cpf);
 
     printf("Informe o dia de nascimento:\n");
-    scanf("%d", &listaProfessor[qtdProfessor].diaNascimento);
+    int diaNascimento;
+    scanf("%d", &diaNascimento);
+    listaProfessor[qtdProfessor].diaNascimento = diaNascimento;
     printf("Informe o mês de nascimento:\n");
-    scanf("%d", &listaProfessor[qtdProfessor].mesNascimento);
+    int mesNascimento;
+    scanf("%d", &mesNascimento);
+    listaProfessor[qtdProfessor].mesNascimento = mesNascimento;
     printf("Informe o ano de nascimento:\n");
-    scanf("%d", &listaProfessor[qtdProfessor].anoNascimento);
+    int anoNascimento;
+    scanf("%d", &anoNascimento);
+    listaProfessor[qtdProfessor].anoNascimento = anoNascimento;
 
     printf("Digite a matricula\n");
     int matricula;
@@ -155,11 +161,17 @@ int atualizarProfessor(Professor listaProfessor[], int qtdProfessor) {
         opcao = toupper(opcao);
         if (opcao == 'S') {
             printf("Informe o novo dia de nascimento:\n");
-            scanf("%d", &listaProfessor[i].diaNascimento);
+            int novoDiaNascimento;
+            scanf("%d", &novoDiaNascimento);
+            listaProfessor[i].diaNascimento = novoDiaNascimento;
             printf("Informe o novo mês de nascimento:\n");
-            scanf("%d", &listaProfessor[i].mesNascimento);
+            int novoMesNascimento;
+            scanf("%d", &novoMesNascimento);
+            listaProfessor[i].mesNascimento = novoMesNascimento;
             printf("Informe o novo ano de nascimento:\n");
-            scanf("%d", &listaProfessor[i].anoNascimento);
+            int novoAnoNascimento;
+            scanf("%d", &novoAnoNascimento);
+            listaProfessor[i].anoNascimento = novoAnoNascimento
         }else if (opcao != 'N') {
           return OPCAO_INVALIDA;
         }
@@ -219,5 +231,7 @@ int excluirProfessor(Professor listaProfessor[], int qtdProfessor) {
       return EXCLUSAO_PROF_SUCESSO;
     else
       return MATRICULA_INEXISTENTE;
-  }
+  }else if (opcao != 'N') {
+          return OPCAO_INVALIDA;
+        }
 }
