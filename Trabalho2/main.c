@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "funcoes.h"
 
-// Protótipos das funções do funcoes.c
 void inicializarEstruturas();
 void criarEstruturaAuxiliar(int posicao, int tamanho);
 void inserirElemento(int posicao, int valor);
