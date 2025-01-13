@@ -119,7 +119,7 @@ void excluirElemento(EstruturaAuxiliar principal[10], int posicao, int valor) {
     printf("Elemento %d não encontrado na estrutura auxiliar.\n", valor);
 }
 
-void listarEstruturas() {
+void listarEstruturas(EstruturaAuxiliar principal[10]) {
     for (int i = 0; i < 10; i++) {
         printf("Posição %d: ", i + 1);
         if (principal[i].valores == NULL) {
