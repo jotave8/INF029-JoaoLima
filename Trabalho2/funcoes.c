@@ -2,9 +2,7 @@
 #include <stdlib.h>
 #include "funcoes.h"
 
-EstruturaAuxiliar principal[10];
-
-void inicializarEstruturas() {
+void inicializarEstruturas(EstruturaAuxiliar principal[10]) {
     for (int i = 0; i < 10; i++) {
         principal[i].valores = NULL;
         principal[i].tamanho = 0;
@@ -12,7 +10,7 @@ void inicializarEstruturas() {
     }
 }
 
-void criarEstruturaAuxiliar(int posicao, int tamanho) {
+void criarEstruturaAuxiliar(EstruturaAuxiliar principal[10], int posicao, int tamanho) {
     if (posicao < 1 || posicao > 10) {
         printf("Posição inválida!\n");
         return;
@@ -31,20 +29,29 @@ void criarEstruturaAuxiliar(int posicao, int tamanho) {
     printf("Estrutura auxiliar criada com sucesso!\n");
 }
 
-void inserirElemento(int posicao, int valor) {
+void inserirElemento(EstruturaAuxiliar principal[10], int posicao, int valor) {
     if (posicao < 1 || posicao > 10) {
         printf("Posição inválida!\n");
         return;
     }
+
     EstruturaAuxiliar *aux = &principal[posicao - 1];
     if (aux->valores == NULL) {
-        printf("Estrutura auxiliar não existe nesta posição!\n");
-        return;
+        int tamanho;
+        printf("Estrutura auxiliar não existe nesta posição. Informe o tamanho: ");
+        scanf("%d", &tamanho);
+        if (tamanho <= 0) {
+            printf("Tamanho inválido!\n");
+            return;
+        }
+        criarEstruturaAuxiliar(principal, posicao, tamanho);
+        aux = &principal[posicao - 1];
     }
     if (aux->ocupados >= aux->tamanho) {
         printf("Estrutura auxiliar está cheia!\n");
         return;
     }
+
     aux->valores[aux->ocupados] = valor;
     aux->ocupados++;
     printf("Elemento inserido com sucesso!\n");
@@ -59,7 +66,33 @@ void inserirElemento(int posicao, int valor) {
     }
 }
 
-void excluirElemento(int posicao, int valor) {
+void aumentarEstruturaAuxiliar(EstruturaAuxiliar principal[10], int posicao, int tamanhoExtra) {
+    if (posicao < 1 || posicao > 10) {
+        printf("Posição inválida!\n");
+        return;
+    }
+    EstruturaAuxiliar *aux = &principal[posicao - 1];
+    if (aux->valores == NULL) {
+        printf("Estrutura auxiliar não existe nesta posição!\n");
+        return;
+    }
+    if (tamanhoExtra <= 0) {
+        printf("Tamanho extra inválido!\n");
+        return;
+    }
+    int novoTamanho = aux->tamanho + tamanhoExtra;
+    int *novoArray = (int *)realloc(aux->valores, novoTamanho * sizeof(int));
+    if (novoArray == NULL) {
+        printf("Erro ao realocar memória!\n");
+        return;
+    }
+
+    aux->valores = novoArray;
+    aux->tamanho = novoTamanho;
+    printf("Estrutura auxiliar aumentada para %d posições!\n", novoTamanho);
+}
+
+void excluirElemento(EstruturaAuxiliar principal[10], int posicao, int valor) {
     if (posicao < 1 || posicao > 10) {
         printf("Posição inválida!\n");
         return;
@@ -74,7 +107,10 @@ void excluirElemento(int posicao, int valor) {
 
     for (int i = 0; i < aux->ocupados; i++) {
         if (aux->valores[i] == valor) {
-            aux->valores[i] = 0;
+            for (int j = i; j < aux->ocupados - 1; j++) {
+                aux->valores[j] = aux->valores[j + 1];
+            }
+            aux->ocupados--;
             printf("Elemento %d excluído com sucesso!\n", valor);
             return;
         }
