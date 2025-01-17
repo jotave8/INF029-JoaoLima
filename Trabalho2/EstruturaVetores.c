@@ -17,9 +17,7 @@ typedef struct {
     int quantidade;
 } EstruturaAuxiliar;
 
-static EstruturaAuxiliar vetorPrincipal[TAM];
-
-void inicializar() {
+void inicializar(EstruturaAuxiliar vetorPrincipal[]) {
     for (int i = 0; i < TAM; i++) {
         vetorPrincipal[i].vetor = NULL;
         vetorPrincipal[i].tamanho = 0;
@@ -27,7 +25,7 @@ void inicializar() {
     }
 }
 
-void finalizar() {
+void finalizar(EstruturaAuxiliar vetorPrincipal[]) {
     for (int i = 0; i < TAM; i++) {
         if (vetorPrincipal[i].vetor != NULL) {
             free(vetorPrincipal[i].vetor);
@@ -41,16 +39,18 @@ int ehPosicaoValida(int posicao) {
         return POSICAO_INVALIDA;
     return SUCESSO;
 }
+
 int comparar(const void *a, const void *b) {
     return (*(int *)a - *(int *)b);
 }
 
-int criarEstruturaAuxiliar(int posicao, int tamanho) {
+int criarEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int tamanho) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
-    
+
     if (tamanho < 1)
         return TAMANHO_INVALIDO;
+
     posicao--;
     if (vetorPrincipal[posicao].vetor != NULL)
         return JA_TEM_ESTRUTURA_AUXILIAR;
@@ -64,7 +64,7 @@ int criarEstruturaAuxiliar(int posicao, int tamanho) {
     return SUCESSO;
 }
 
-int inserirNumeroEmEstrutura(int posicao, int valor) {
+int inserirNumeroEmEstrutura(EstruturaAuxiliar vetorPrincipal[], int posicao, int valor) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
@@ -79,7 +79,7 @@ int inserirNumeroEmEstrutura(int posicao, int valor) {
     return SUCESSO;
 }
 
-int excluirNumeroDoFinaldaEstrutura(int posicao) {
+int excluirNumeroDoFinaldaEstrutura(EstruturaAuxiliar vetorPrincipal[], int posicao) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
@@ -94,11 +94,12 @@ int excluirNumeroDoFinaldaEstrutura(int posicao) {
     return SUCESSO;
 }
 
-int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
+int excluirNumeroEspecificoDeEstrutura(EstruturaAuxiliar vetorPrincipal[], int posicao, int valor) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
     posicao--;
+
     if (vetorPrincipal[posicao].vetor == NULL)
         return SEM_ESTRUTURA_AUXILIAR;
 
@@ -119,7 +120,7 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
     return SUCESSO;
 }
 
-int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho) {
+int modificarTamanhoEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int novoTamanho) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
@@ -142,7 +143,7 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho) {
     return SUCESSO;
 }
 
-int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
+int getDadosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int vetorAux[]) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
@@ -159,7 +160,7 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
     return SUCESSO;
 }
 
-int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
+int getDadosOrdenadosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int vetorAux[]) {
     int retorno;
     if (ehPosicaoValida(posicao) != SUCESSO) {
         retorno = POSICAO_INVALIDA;
