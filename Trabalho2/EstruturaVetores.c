@@ -181,4 +181,75 @@ int getDadosOrdenadosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int p
     return retorno;
 }
 
+int getDadosOrdenadosDeTodasEstruturasAuxiliares(EstruturaAuxiliar vetorPrincipal[], int vetorAux[]) {
+    int quantidadeTotal = 0;
+    for (int i = 0; i < TAM; i++) {
+        if (vetorPrincipal[i].vetor != NULL && vetorPrincipal[i].quantidade > 0) {
+            for (int j = 0; j < vetorPrincipal[i].quantidade; j++) {
+                vetorAux[quantidadeTotal++] = vetorPrincipal[i].vetor[j];
+            }
+        }
+    }
+    if (quantidadeTotal == 0) {
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+    }
+    qsort(vetorAux, quantidadeTotal, sizeof(int), comparar);
+    return SUCESSO;
+}
 
+int getQuantidadeElementosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao) {
+    if (ehPosicaoValida(posicao) != SUCESSO) {
+        return POSICAO_INVALIDA;
+    }
+    posicao--;
+    if (vetorPrincipal[posicao].vetor == NULL) {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+    if (vetorPrincipal[posicao].quantidade == 0) {
+        return ESTRUTURA_AUXILIAR_VAZIA;
+    }
+    return vetorPrincipal[posicao].quantidade;
+}
+
+No *montarListaEncadeadaComCabecote(EstruturaAuxiliar vetorPrincipal[]) {
+    No *cabecote = (No *)malloc(sizeof(No));
+    if (cabecote == NULL) {
+        return NULL;
+    }
+    cabecote->prox = NULL;
+    No *ultimo = cabecote;
+    for (int i = 0; i < TAM; i++) {
+        if (vetorPrincipal[i].vetor != NULL && vetorPrincipal[i].quantidade > 0) {
+            for (int j = 0; j < vetorPrincipal[i].quantidade; j++) {
+                No *novo = (No *)malloc(sizeof(No));
+                if (novo == NULL) {
+                    return NULL;
+                }
+                novo->conteudo = vetorPrincipal[i].vetor[j];
+                novo->prox = NULL;
+                ultimo->prox = novo;
+                ultimo = novo;
+            }
+        }
+    }
+    return cabecote->prox ? cabecote : NULL;
+}
+
+void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]) {
+    int i = 0;
+    while (inicio != NULL) {
+        vetorAux[i++] = inicio->conteudo;
+        inicio = inicio->prox;
+    }
+}
+
+void destruirListaEncadeadaComCabecote(No **inicio){
+    No *atual = *inicio;
+    No *temp;
+    while (atual != NULL){
+        temp = atual;
+        atual = atual->proximo;
+        free(temp);
+    }
+    *inicio = NULL;
+}
