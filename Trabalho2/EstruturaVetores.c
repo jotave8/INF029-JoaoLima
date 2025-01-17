@@ -11,12 +11,6 @@
 #define ESTRUTURA_AUXILIAR_VAZIA -5
 #define NUMERO_INEXISTENTE -6
 
-typedef struct {
-    int *vetor;
-    int tamanho;
-    int quantidade;
-} EstruturaAuxiliar;
-
 void inicializar(EstruturaAuxiliar vetorPrincipal[]) {
     for (int i = 0; i < TAM; i++) {
         vetorPrincipal[i].vetor = NULL;
@@ -181,7 +175,7 @@ int getDadosOrdenadosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int p
     return retorno;
 }
 
-int getDadosOrdenadosDeTodasEstruturasAuxiliares(EstruturaAuxiliar vetorPrincipal[], int vetorAux[]) {
+int getDadosOrdenadosDeTodasEstruturasAuxiliares(EstruturaAuxiliar vetorPrincipal[], int vetorAux[]){
     int quantidadeTotal = 0;
     for (int i = 0; i < TAM; i++) {
         if (vetorPrincipal[i].vetor != NULL && vetorPrincipal[i].quantidade > 0) {
