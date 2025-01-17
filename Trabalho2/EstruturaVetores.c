@@ -38,6 +38,10 @@ int comparar(const void *a, const void *b) {
     return (*(int *)a - *(int *)b);
 }
 
+void dobrar(int *x) {
+    *x *= 2;
+}
+
 int criarEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int tamanho) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;

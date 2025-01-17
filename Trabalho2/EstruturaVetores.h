@@ -35,5 +35,6 @@ void destruirListaEncadeadaComCabecote(No **inicio);
 void inicializar();
 void finalizar();
 int comparar(const void *a, const void *b);
+void dobrar(int *x);
 
 #endif
