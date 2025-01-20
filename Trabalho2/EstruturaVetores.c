@@ -11,7 +11,7 @@
 #define ESTRUTURA_AUXILIAR_VAZIA -5
 #define NUMERO_INEXISTENTE -6
 
-void inicializar(EstruturaAuxiliar vetorPrincipal[]) {
+void inicializar(EstruturaAuxiliar vetorPrincipal[TAM]) {
     for (int i = 0; i < TAM; i++) {
         vetorPrincipal[i].vetor = NULL;
         vetorPrincipal[i].tamanho = 0;
@@ -241,12 +241,12 @@ void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]) {
     }
 }
 
-void destruirListaEncadeadaComCabecote(No **inicio){
+void destruirListaEncadeadaComCabecote(No **inicio) {
     No *atual = *inicio;
     No *temp;
-    while (atual != NULL){
+    while (atual != NULL) {
         temp = atual;
-        atual = atual->proximo;
+        atual = atual->prox;
         free(temp);
     }
     *inicio = NULL;

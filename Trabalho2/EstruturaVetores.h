@@ -8,14 +8,14 @@ enum { TODAS_ESTRUTURAS_AUXILIARES_VAZIAS = -11, NOVO_TAMANHO_INVALIDO, NUMERO_I
        JA_TEM_ESTRUTURA_AUXILIAR, SEM_ESTRUTURA_AUXILIAR, SEM_ESPACO, SUCESSO };
 
 typedef struct {
-    int *elementos;
+    int *vetor;
     int tamanho;
-    int capacidade;
+    int quantidade;
 } EstruturaAuxiliar;
 
-typedef struct reg {
+typedef struct No {
     int conteudo;
-    struct reg *prox;
+    struct No *prox;
 } No;
 
 int criarEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int tamanho);
