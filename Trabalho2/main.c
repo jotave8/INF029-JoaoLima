@@ -2,13 +2,10 @@
 #include <stdlib.h>
 
 #include "EstruturaVetores.h"
-
+#define TAM 10
 int menu();
 
-void dobrar(int *x);
-
-int menu()
-{
+int menu(){
     int op;
     printf("\nDigite a opcao desejada\n");
     printf("0 - Sair\n");
@@ -21,13 +18,8 @@ int menu()
     return op;
 }
 
-void dobrar(int *x)
-{
-    *x = (*x) * 2;
-}
-
-int main()
-{
+int main(){
+    EstruturaAuxiliar vetorPrincipal[TAM];
     inicializar();
     int op;
     int sair = 0;
@@ -51,7 +43,7 @@ int main()
             printf("Informe o valor a inserir: ");
             scanf("%d", &valor);
 
-            ret = inserirNumeroEmEstrutura(posicao, valor);
+            ret = inserirNumeroEmEstrutura(vetorPrincipal, posicao, valor);
 
             if (ret == SUCESSO)
             {
@@ -79,7 +71,7 @@ int main()
             printf("Informe o valor a excluir: ");
             scanf("%d", &valor);
 
-            ret = excluirNumeroEspecificoDeEstrutura(posicao, valor);
+            ret = excluirNumeroEspecificoDeEstrutura(vetorPrincipal,posicao, valor);
 
             if (ret == SUCESSO)
             {
@@ -105,7 +97,7 @@ int main()
             printf("Qual a estrutura a ser listada (1..10)? ");
             scanf("%d", &posicao);
 
-            qtd = getQuantidadeElementosEstruturaAuxiliar(posicao);
+            qtd = getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, posicao);
 
             if (qtd == POSICAO_INVALIDA)
             {
@@ -122,7 +114,7 @@ int main()
             else
             { // Existe elemento
                 int vetorAux[qtd];
-                retorno = getDadosEstruturaAuxiliar(posicao, vetorAux);
+                retorno = getDadosEstruturaAuxiliar(vetorPrincipal, posicao, vetorAux);
 
                 if (retorno == SUCESSO)
                 {

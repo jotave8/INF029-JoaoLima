@@ -11,7 +11,7 @@
 #define ESTRUTURA_AUXILIAR_VAZIA -5
 #define NUMERO_INEXISTENTE -6
 
-void inicializar(EstruturaAuxiliar vetorPrincipal[TAM]) {
+void inicializar(EstruturaAuxiliar vetorPrincipal[]) {
     for (int i = 0; i < TAM; i++) {
         vetorPrincipal[i].vetor = NULL;
         vetorPrincipal[i].tamanho = 0;
