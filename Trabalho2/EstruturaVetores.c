@@ -11,7 +11,9 @@
 #define ESTRUTURA_AUXILIAR_VAZIA -5
 #define NUMERO_INEXISTENTE -6
 
-void inicializar(EstruturaAuxiliar vetorPrincipal[]) {
+EstruturaAuxiliar vetorPrincipal[TAM];
+
+void inicializar() {
     for (int i = 0; i < TAM; i++) {
         vetorPrincipal[i].vetor = NULL;
         vetorPrincipal[i].tamanho = 0;
@@ -19,7 +21,7 @@ void inicializar(EstruturaAuxiliar vetorPrincipal[]) {
     }
 }
 
-void finalizar(EstruturaAuxiliar vetorPrincipal[]) {
+void finalizar() {
     for (int i = 0; i < TAM; i++) {
         if (vetorPrincipal[i].vetor != NULL) {
             free(vetorPrincipal[i].vetor);
@@ -42,7 +44,7 @@ void dobrar(int *x) {
     *x *= 2;
 }
 
-int criarEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int tamanho) {
+int criarEstruturaAuxiliar(int posicao, int tamanho) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
@@ -62,7 +64,7 @@ int criarEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int 
     return SUCESSO;
 }
 
-int inserirNumeroEmEstrutura(EstruturaAuxiliar vetorPrincipal[], int posicao, int valor) {
+int inserirNumeroEmEstrutura(int posicao, int valor) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
@@ -77,7 +79,7 @@ int inserirNumeroEmEstrutura(EstruturaAuxiliar vetorPrincipal[], int posicao, in
     return SUCESSO;
 }
 
-int excluirNumeroDoFinaldaEstrutura(EstruturaAuxiliar vetorPrincipal[], int posicao) {
+int excluirNumeroDoFinaldaEstrutura(int posicao) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
@@ -92,7 +94,7 @@ int excluirNumeroDoFinaldaEstrutura(EstruturaAuxiliar vetorPrincipal[], int posi
     return SUCESSO;
 }
 
-int excluirNumeroEspecificoDeEstrutura(EstruturaAuxiliar vetorPrincipal[], int posicao, int valor) {
+int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
@@ -118,7 +120,7 @@ int excluirNumeroEspecificoDeEstrutura(EstruturaAuxiliar vetorPrincipal[], int p
     return SUCESSO;
 }
 
-int modificarTamanhoEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int novoTamanho) {
+int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
@@ -141,7 +143,7 @@ int modificarTamanhoEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int po
     return SUCESSO;
 }
 
-int getDadosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int vetorAux[]) {
+int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
@@ -158,7 +160,7 @@ int getDadosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, i
     return SUCESSO;
 }
 
-int getDadosOrdenadosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int vetorAux[]) {
+int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
     int retorno;
     if (ehPosicaoValida(posicao) != SUCESSO) {
         retorno = POSICAO_INVALIDA;
@@ -179,7 +181,7 @@ int getDadosOrdenadosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int p
     return retorno;
 }
 
-int getDadosOrdenadosDeTodasEstruturasAuxiliares(EstruturaAuxiliar vetorPrincipal[], int vetorAux[]){
+int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]){
     int quantidadeTotal = 0;
     for (int i = 0; i < TAM; i++) {
         if (vetorPrincipal[i].vetor != NULL && vetorPrincipal[i].quantidade > 0) {
@@ -195,7 +197,7 @@ int getDadosOrdenadosDeTodasEstruturasAuxiliares(EstruturaAuxiliar vetorPrincipa
     return SUCESSO;
 }
 
-int getQuantidadeElementosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao) {
+int getQuantidadeElementosEstruturaAuxiliar(int posicao) {
     if (ehPosicaoValida(posicao) != SUCESSO) {
         return POSICAO_INVALIDA;
     }
@@ -209,7 +211,7 @@ int getQuantidadeElementosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], 
     return vetorPrincipal[posicao].quantidade;
 }
 
-No *montarListaEncadeadaComCabecote(EstruturaAuxiliar vetorPrincipal[]) {
+No *montarListaEncadeadaComCabecote() {
     No *cabecote = (No *)malloc(sizeof(No));
     if (cabecote == NULL) {
         return NULL;
@@ -239,6 +241,21 @@ void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]) {
         vetorAux[i++] = inicio->conteudo;
         inicio = inicio->prox;
     }
+}
+
+int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]) {
+    int quantidadeTotal = 0;
+    for (int i = 0; i < TAM; i++) {
+        if (vetorPrincipal[i].vetor != NULL && vetorPrincipal[i].quantidade > 0) {
+            for (int j = 0; j < vetorPrincipal[i].quantidade; j++) {
+                vetorAux[quantidadeTotal++] = vetorPrincipal[i].vetor[j];
+            }
+        }
+    }
+    if (quantidadeTotal == 0) {
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+    }
+    return SUCESSO;
 }
 
 void destruirListaEncadeadaComCabecote(No **inicio) {

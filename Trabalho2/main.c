@@ -43,7 +43,7 @@ int main(){
             printf("Informe o valor a inserir: ");
             scanf("%d", &valor);
 
-            ret = inserirNumeroEmEstrutura(vetorPrincipal, posicao, valor);
+            ret = inserirNumeroEmEstrutura(posicao, valor);
 
             if (ret == SUCESSO)
             {
@@ -71,7 +71,7 @@ int main(){
             printf("Informe o valor a excluir: ");
             scanf("%d", &valor);
 
-            ret = excluirNumeroEspecificoDeEstrutura(vetorPrincipal,posicao, valor);
+            ret = excluirNumeroEspecificoDeEstrutura(posicao, valor);
 
             if (ret == SUCESSO)
             {
@@ -97,7 +97,7 @@ int main(){
             printf("Qual a estrutura a ser listada (1..10)? ");
             scanf("%d", &posicao);
 
-            qtd = getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, posicao);
+            qtd = getQuantidadeElementosEstruturaAuxiliar(posicao);
 
             if (qtd == POSICAO_INVALIDA)
             {
@@ -114,7 +114,7 @@ int main(){
             else
             { // Existe elemento
                 int vetorAux[qtd];
-                retorno = getDadosEstruturaAuxiliar(vetorPrincipal, posicao, vetorAux);
+                retorno = getDadosEstruturaAuxiliar(posicao, vetorAux);
 
                 if (retorno == SUCESSO)
                 {

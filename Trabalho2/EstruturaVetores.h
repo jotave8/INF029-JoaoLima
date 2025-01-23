@@ -18,17 +18,17 @@ typedef struct No {
     struct No *prox;
 } No;
 
-int criarEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int tamanho);
-int inserirNumeroEmEstrutura(EstruturaAuxiliar vetorPrincipal[], int posicao, int valor);
-int excluirNumeroDoFinaldaEstrutura(EstruturaAuxiliar vetorPrincipal[], int posicao);
-int excluirNumeroEspecificoDeEstrutura(EstruturaAuxiliar vetorPrincipal[], int posicao, int valor);
-int getDadosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int vetorAux[]);
-int getDadosOrdenadosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int vetorAux[]);
-int getDadosDeTodasEstruturasAuxiliares(EstruturaAuxiliar vetorPrincipal[], int vetorAux[]);
-int getDadosOrdenadosDeTodasEstruturasAuxiliares(EstruturaAuxiliar vetorPrincipal[], int vetorAux[]);
-int modificarTamanhoEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao, int novoTamanho);
-int getQuantidadeElementosEstruturaAuxiliar(EstruturaAuxiliar vetorPrincipal[], int posicao);
-No *montarListaEncadeadaComCabecote(EstruturaAuxiliar vetorPrincipal[]);
+int criarEstruturaAuxiliar(int posicao, int tamanho);
+int inserirNumeroEmEstrutura(int posicao, int valor);
+int excluirNumeroDoFinaldaEstrutura(int posicao);
+int excluirNumeroEspecificoDeEstrutura(int posicao, int valor);
+int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]);
+int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[]);
+int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]);
+int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]);
+int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho);
+int getQuantidadeElementosEstruturaAuxiliar(int posicao);
+No *montarListaEncadeadaComCabecote();
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]);
 void destruirListaEncadeadaComCabecote(No **inicio);
 
