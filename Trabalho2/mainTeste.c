@@ -39,6 +39,7 @@ void show_log(char *str)
 void testeInserirSemNada()
 {
     show_log("testeInserirSemNada()");
+    printf("testeInserirSemNada\n");
     printf("%d\n", inserirNumeroEmEstrutura(2, 2) == SEM_ESTRUTURA_AUXILIAR);
     printf("%d\n", inserirNumeroEmEstrutura(-2, 2) == POSICAO_INVALIDA);
     printf("%d\n", inserirNumeroEmEstrutura(0, 2) == POSICAO_INVALIDA);
@@ -48,6 +49,7 @@ void testeInserirSemNada()
 void testeCriarEstrutura()
 {
     show_log("testeCriarEstrutura()");
+    printf("testeCriarEstrutura\n");
     printf("%d\n", criarEstruturaAuxiliar(-2, 5) == POSICAO_INVALIDA);
     printf("%d\n", criarEstruturaAuxiliar(0, 5) == POSICAO_INVALIDA);
     printf("%d\n", criarEstruturaAuxiliar(11, 5) == POSICAO_INVALIDA);
@@ -64,6 +66,7 @@ void testeInserirComEstrutura()
 {
     show_log("testeInserirComEstrutura()");
     //###  int inserirNumeroEmEstrutura(int valor, int posicao); ###
+    printf("testeInserirComEstrutura\n");
     printf("%d\n", inserirNumeroEmEstrutura(2, 4) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(2, -2) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(2, 6) == SUCESSO);
@@ -76,6 +79,7 @@ void testeExcluir()
 {
     show_log("testeExcluir()");
     //###  int excluirNumeroDoFinaldaEstrutura(int posicao); ###
+    printf("testeExcluir\n");
     printf("%d\n", excluirNumeroDoFinaldaEstrutura(2) == SUCESSO);
     printf("%d\n", excluirNumeroDoFinaldaEstrutura(2) == SUCESSO);
     printf("%d\n", excluirNumeroDoFinaldaEstrutura(0) == POSICAO_INVALIDA);
@@ -92,6 +96,7 @@ void testeExcluirNumeroEspecifico()
 {
     show_log("testeExcluirNumeroEspecifico()");
     //###  int excluirNumeroEspecificoDeEstrutura(int posicao, int valor); ###
+    printf("testeExcluirNumeroEspecifico\n"); 
     printf("%d\n", criarEstruturaAuxiliar(9, 3) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(9, 7) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(9, 4) == SUCESSO);
@@ -108,6 +113,7 @@ void testeListar()
 {
     show_log("testeListar()");
     //###  int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]); ###
+    printf("testeListar\n");
     printf("%d\n", inserirNumeroEmEstrutura(2, 7) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(2, -9) == SUCESSO);
 
@@ -144,6 +150,7 @@ void testeRetornarTodosNumeros()
 {
     show_log("testeRetornarTodosNumeros()");
     int vet1[2];
+    printf("testeRetornarTodosNumeros\n");
     printf("%d\n", getDadosDeTodasEstruturasAuxiliares(vet1) == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS);
 
     printf("%d\n", getDadosOrdenadosDeTodasEstruturasAuxiliares(vet1) == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS);
@@ -228,6 +235,7 @@ void testeMudarTamanhoEstrutura()
 {
     show_log("testeMudarTamanhoEstrutura()");
     int vet[1];
+    printf("testeMudarTamanhoEstrutura\n");
     printf("%d\n", modificarTamanhoEstruturaAuxiliar(2, -3) == NOVO_TAMANHO_INVALIDO);
     printf("%d\n", modificarTamanhoEstruturaAuxiliar(2, -4) == NOVO_TAMANHO_INVALIDO);
     printf("%d\n", modificarTamanhoEstruturaAuxiliar(11, 7) == POSICAO_INVALIDA);
@@ -263,7 +271,7 @@ void testeListaEncadeada()
     int vet[10];
     No *inicio = montarListaEncadeadaComCabecote();
     getDadosListaEncadeadaComCabecote(inicio, vet);
-
+    printf("testeListaEncadeada\n");
     printf("%d\n", vet[0] == 3);
     printf("%d\n", vet[1] == 4);
     printf("%d\n", vet[2] == -2);

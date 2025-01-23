@@ -2,15 +2,6 @@
 #include <stdlib.h>
 #include "EstruturaVetores.h"
 
-#define TAM 10
-#define SUCESSO 0
-#define POSICAO_INVALIDA -1
-#define SEM_ESTRUTURA_AUXILIAR -2
-#define SEM_ESPACO_DE_MEMORIA -3
-#define TAMANHO_INVALIDO -4
-#define ESTRUTURA_AUXILIAR_VAZIA -5
-#define NUMERO_INEXISTENTE -6
-
 EstruturaAuxiliar vetorPrincipal[TAM];
 
 void inicializar() {
