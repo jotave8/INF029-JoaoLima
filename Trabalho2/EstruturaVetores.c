@@ -212,8 +212,16 @@ No *montarListaEncadeadaComCabecote() {
     for (int i = 0; i < TAM; i++) {
         if (vetorPrincipal[i].vetor != NULL && vetorPrincipal[i].quantidade > 0) {
             for (int j = 0; j < vetorPrincipal[i].quantidade; j++) {
+                // Cria um novo nó para cada elemento
                 No *novo = (No *)malloc(sizeof(No));
                 if (novo == NULL) {
+                    No *temp = cabecote->prox;
+                    while (temp != NULL) {
+                        No *prox = temp->prox;
+                        free(temp);
+                        temp = prox;
+                    }
+                    free(cabecote);
                     return NULL;
                 }
                 novo->conteudo = vetorPrincipal[i].vetor[j];
@@ -223,14 +231,18 @@ No *montarListaEncadeadaComCabecote() {
             }
         }
     }
-    return cabecote->prox ? cabecote : NULL;
+    return (cabecote->prox != NULL) ? cabecote : NULL;
 }
 
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]) {
+    if (inicio == NULL) {
+        return;
+    }
+    No *atual = inicio->prox;
     int i = 0;
-    while (inicio != NULL) {
-        vetorAux[i++] = inicio->conteudo;
-        inicio = inicio->prox;
+    while (atual != NULL) {
+        vetorAux[i++] = atual->conteudo;
+        atual = atual->prox;
     }
 }
 
