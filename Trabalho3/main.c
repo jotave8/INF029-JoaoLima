@@ -40,6 +40,24 @@ int main(){
             int posicao, valor, ret;
             printf("Informe a posicao (1 a 10): ");
             scanf("%d", &posicao);
+            if (getQuantidadeElementosEstruturaAuxiliar(posicao) == SEM_ESTRUTURA_AUXILIAR){
+                int tamanho;
+                printf("Nao ha estrutura auxiliar nesta posicao.\n");
+                printf("Informe o tamanho da estrutura auxiliar para essa posicao: ");
+                scanf("%d", &tamanho);
+
+                ret = criarEstruturaAuxiliar(posicao, tamanho);
+
+                if (ret == SUCESSO)
+                {
+                    printf("Estrutura auxiliar criada com sucesso!\n");
+                }
+                else
+                {
+                    printf("Falha ao criar estrutura auxiliar. Verifique as restricoes.\n");
+                    break;
+                }
+            }
             printf("Informe o valor a inserir: ");
             scanf("%d", &valor);
 

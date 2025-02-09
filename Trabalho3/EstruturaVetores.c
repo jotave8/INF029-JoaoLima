@@ -10,9 +10,11 @@ void inicializar() {
         vetorPrincipal[i].tamanho = 0;
         vetorPrincipal[i].quantidade = 0;
     }
+    carregarDados();
 }
 
 void finalizar() {
+    salvarDados();
     for (int i = 0; i < TAM; i++) {
         if (vetorPrincipal[i].vetor != NULL) {
             free(vetorPrincipal[i].vetor);
@@ -270,4 +272,45 @@ void destruirListaEncadeadaComCabecote(No **inicio) {
         free(temp);
     }
     *inicio = NULL;
+}
+
+void salvarDados() {
+    FILE *arquivo = fopen("dados.txt", "w");  // Modo texto
+    if (!arquivo) {
+        printf("Erro ao abrir arquivo para salvar os dados.\n");
+        return;
+    }
+
+    for (int i = 0; i < TAM; i++) {
+        fprintf(arquivo, "%d %d\n", vetorPrincipal[i].tamanho, vetorPrincipal[i].quantidade);
+        for (int j = 0; j < vetorPrincipal[i].quantidade; j++) {
+            fprintf(arquivo, "%d ", vetorPrincipal[i].vetor[j]);
+        }
+        fprintf(arquivo, "\n");
+    }
+
+    fclose(arquivo);
+}
+
+void carregarDados() {
+    FILE *arquivo = fopen("dados.txt", "r");  // Modo texto
+    if (!arquivo) {
+        printf("Nenhum dado salvo encontrado. Inicializando estrutura vazia.\n");
+        return;
+    }
+
+    for (int i = 0; i < TAM; i++) {
+        if (fscanf(arquivo, "%d %d", &vetorPrincipal[i].tamanho, &vetorPrincipal[i].quantidade) != 2) {
+            break;
+        }
+
+        if (vetorPrincipal[i].tamanho > 0) {
+            vetorPrincipal[i].vetor = (int *)malloc(vetorPrincipal[i].tamanho * sizeof(int));
+            for (int j = 0; j < vetorPrincipal[i].quantidade; j++) {
+                fscanf(arquivo, "%d", &vetorPrincipal[i].vetor[j]);
+            }
+        }
+    }
+
+    fclose(arquivo);
 }
