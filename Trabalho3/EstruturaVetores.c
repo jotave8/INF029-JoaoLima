@@ -24,7 +24,7 @@ void finalizar() {
 }
 
 int ehPosicaoValida(int posicao) {
-    if (posicao < 1 || posicao > TAM)
+    if (posicao < 0 || posicao >= TAM)
         return POSICAO_INVALIDA;
     return SUCESSO;
 }
@@ -41,7 +41,7 @@ int criarEstruturaAuxiliar(int posicao, int tamanho) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
-    if (tamanho < 1)
+    if (tamanho <= 0)
         return TAMANHO_INVALIDO;
 
     posicao--;
@@ -61,7 +61,7 @@ int inserirNumeroEmEstrutura(int posicao, int valor) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
-    posicao--;
+        posicao--;
     if (vetorPrincipal[posicao].vetor == NULL)
         return SEM_ESTRUTURA_AUXILIAR;
 
@@ -275,42 +275,45 @@ void destruirListaEncadeadaComCabecote(No **inicio) {
 }
 
 void salvarDados() {
-    FILE *arquivo = fopen("dados.txt", "w");  // Modo texto
+    FILE *arquivo = fopen("dados.txt", "w");
     if (!arquivo) {
         printf("Erro ao abrir arquivo para salvar os dados.\n");
         return;
     }
 
     for (int i = 0; i < TAM; i++) {
-        fprintf(arquivo, "%d %d\n", vetorPrincipal[i].tamanho, vetorPrincipal[i].quantidade);
-        for (int j = 0; j < vetorPrincipal[i].quantidade; j++) {
-            fprintf(arquivo, "%d ", vetorPrincipal[i].vetor[j]);
+        int qtd = getQuantidadeElementosEstruturaAuxiliar(i);
+
+        if (qtd > 0) { // Salvar apenas as estruturas não vazias
+            int vetorAux[qtd];
+            getDadosEstruturaAuxiliar(i, vetorAux);
+
+            fprintf(arquivo, "Posição: %d   Tamanho: %d   Elementos:", i, vetorPrincipal[i].tamanho);
+            for (int j = 0; j < qtd; j++) {
+                fprintf(arquivo, " %d", vetorAux[j]);
+            }
+            fprintf(arquivo, "\n");
         }
-        fprintf(arquivo, "\n");
     }
 
     fclose(arquivo);
 }
 
 void carregarDados() {
-    FILE *arquivo = fopen("dados.txt", "r");  // Modo texto
+    FILE *arquivo = fopen("dados.txt", "r");
     if (!arquivo) {
         printf("Nenhum dado salvo encontrado. Inicializando estrutura vazia.\n");
         return;
     }
 
-    for (int i = 0; i < TAM; i++) {
-        if (fscanf(arquivo, "%d %d", &vetorPrincipal[i].tamanho, &vetorPrincipal[i].quantidade) != 2) {
-            break;
-        }
+    int posicao, tamanho;
+    while (fscanf(arquivo, "Posição: %d   Tamanho: %d", &posicao, &tamanho) == 2) {
+        criarEstruturaAuxiliar(posicao, tamanho);
 
-        if (vetorPrincipal[i].tamanho > 0) {
-            vetorPrincipal[i].vetor = (int *)malloc(vetorPrincipal[i].tamanho * sizeof(int));
-            for (int j = 0; j < vetorPrincipal[i].quantidade; j++) {
-                fscanf(arquivo, "%d", &vetorPrincipal[i].vetor[j]);
-            }
+        int valor;
+        while (fscanf(arquivo, "%d", &valor) == 1) {
+            inserirNumeroEmEstrutura(posicao, valor);
         }
     }
-
     fclose(arquivo);
 }
