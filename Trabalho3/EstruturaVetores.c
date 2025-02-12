@@ -281,14 +281,14 @@ void salvarDados() {
         printf("Erro ao abrir arquivo para salvar os dados.\n");
         return;
     }
+
     for (int i = 0; i < TAM; i++) {
         int qtd = getQuantidadeElementosEstruturaAuxiliar(i);
 
         if (qtd > 0) { 
             int vetorAux[qtd];
             getDadosEstruturaAuxiliar(i, vetorAux);
-
-            fprintf(arquivo, "Posição: %d   Elementos:", i); 
+            fprintf(arquivo, "Posição: %d  Tamanho: %d  Elementos:", i, qtd);
             for (int j = 0; j < qtd; j++) {
                 fprintf(arquivo, " %d", vetorAux[j]);
             }
@@ -298,7 +298,6 @@ void salvarDados() {
     fclose(arquivo);
 }
 
-
 void carregarDados() {
     FILE *arquivo = fopen("dados.txt", "r");
     if (!arquivo) {
@@ -306,16 +305,29 @@ void carregarDados() {
         return;
     }
 
-    int posicao, tamanho, qtd, valor;
+    printf("Arquivo 'dados.txt' aberto com sucesso!\n");
 
-    while (fscanf(arquivo, "Posição: %d   Elementos:", &posicao) == 1) {
-        fscanf(arquivo, " %d", &tamanho);
-        criarEstruturaAuxiliar(posicao + 1, tamanho);
+    int posicao, tamanho;
 
+    while (fscanf(arquivo, "Posição: %d  Tamanho: %d  Elementos:", &posicao, &tamanho) == 2) {
+        if (posicao < 1 || posicao > TAM || tamanho <= 0) {
+            printf("Erro ao ler posição ou tamanho.\n");
+            continue;
+        }
+        vetorPrincipal[posicao - 1].vetor = (int *)malloc(tamanho * sizeof(int));
+        if (vetorPrincipal[posicao - 1].vetor == NULL) {
+            printf("Erro ao alocar memória para a posição %d.\n", posicao);
+            continue;
+        }
+        vetorPrincipal[posicao - 1].tamanho = tamanho;
+        vetorPrincipal[posicao - 1].quantidade = 0;
         for (int i = 0; i < tamanho; i++) {
-            fscanf(arquivo, " %d", &valor);
-            inserirNumeroEmEstrutura(posicao + 1, valor);
+            if (fscanf(arquivo, "%d", &vetorPrincipal[posicao - 1].vetor[i]) == 1) {
+                vetorPrincipal[posicao - 1].quantidade++;
+            }
         }
     }
+
     fclose(arquivo);
+    printf("Dados carregados com sucesso!\n");
 }

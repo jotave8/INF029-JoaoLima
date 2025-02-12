@@ -34,9 +34,9 @@ int main(){
             }
             case 1:{ 
                 int posicao, valor, ret;
-                printf("Informe a posicao (1 a 9): ");
+                printf("Informe a posicao (1 a 10): ");
                 scanf("%d", &posicao);
-                if (posicao < 1 || posicao >= TAM) {
+                if (posicao < 1 || posicao >=TAM) {
                     printf("Posicao invalida\n");
                     break;
                 }
