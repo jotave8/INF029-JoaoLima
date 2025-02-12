@@ -34,9 +34,9 @@ int main(){
             }
             case 1:{ 
                 int posicao, valor, ret;
-                printf("Informe a posicao (0 a 9): ");
+                printf("Informe a posicao (1 a 9): ");
                 scanf("%d", &posicao);
-                if (posicao < 0 || posicao >= TAM) {
+                if (posicao < 1 || posicao >= TAM) {
                     printf("Posicao invalida\n");
                     break;
                 }
@@ -81,16 +81,24 @@ int main(){
                 }
                 break;
             }
-            case 3:{
-                printf("\nListagem das Estruturas Auxiliares:\n");
-                for (int i = 0; i < TAM; i++) {
-                    int qtd = getQuantidadeElementosEstruturaAuxiliar(i);
-                    if (qtd > 0) { 
-                        int vetorAux[qtd];
-                        getDadosEstruturaAuxiliar(i, vetorAux);
-                        printf("Posição: %d   Tamanho: %d   Elementos:", i, vetorPrincipal[i].tamanho);
-                        for (int j = 0; j < qtd; j++) {
-                            printf(" %d", vetorAux[j]);
+            case 3:{ 
+                int posicao, retorno;
+
+                printf("Qual a estrutura a ser listada (1..10)? ");
+                scanf("%d", &posicao);
+                int qtd = getQuantidadeElementosEstruturaAuxiliar(posicao);
+                if (qtd == POSICAO_INVALIDA) {
+                    printf("Posição inválida\n");
+                } else if (qtd == 0) {
+                    printf("Estrutura vazia\n");
+                } else { 
+                    int vetorAux[qtd];
+                    retorno = getDadosEstruturaAuxiliar(posicao, vetorAux);
+
+                    if (retorno == SUCESSO) {
+                        printf("Elementos da estrutura na posição %d: ", posicao);
+                        for (int i = 0; i < qtd; i++) {
+                            printf("%d ", vetorAux[i]);
                         }
                         printf("\n");
                     }

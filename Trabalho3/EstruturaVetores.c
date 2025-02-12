@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "EstruturaVetores.h"
 
 EstruturaAuxiliar vetorPrincipal[TAM];
@@ -24,7 +25,7 @@ void finalizar() {
 }
 
 int ehPosicaoValida(int posicao) {
-    if (posicao < 0 || posicao >= TAM)
+    if (posicao < 1 || posicao > TAM)
         return POSICAO_INVALIDA;
     return SUCESSO;
 }
@@ -61,7 +62,7 @@ int inserirNumeroEmEstrutura(int posicao, int valor) {
     if (ehPosicaoValida(posicao) != SUCESSO)
         return POSICAO_INVALIDA;
 
-        posicao--;
+    posicao--;
     if (vetorPrincipal[posicao].vetor == NULL)
         return SEM_ESTRUTURA_AUXILIAR;
 
@@ -280,24 +281,23 @@ void salvarDados() {
         printf("Erro ao abrir arquivo para salvar os dados.\n");
         return;
     }
-
     for (int i = 0; i < TAM; i++) {
         int qtd = getQuantidadeElementosEstruturaAuxiliar(i);
 
-        if (qtd > 0) { // Salvar apenas as estruturas não vazias
+        if (qtd > 0) { 
             int vetorAux[qtd];
             getDadosEstruturaAuxiliar(i, vetorAux);
 
-            fprintf(arquivo, "Posição: %d   Tamanho: %d   Elementos:", i, vetorPrincipal[i].tamanho);
+            fprintf(arquivo, "Posição: %d   Elementos:", i); 
             for (int j = 0; j < qtd; j++) {
                 fprintf(arquivo, " %d", vetorAux[j]);
             }
             fprintf(arquivo, "\n");
         }
     }
-
     fclose(arquivo);
 }
+
 
 void carregarDados() {
     FILE *arquivo = fopen("dados.txt", "r");
@@ -306,13 +306,15 @@ void carregarDados() {
         return;
     }
 
-    int posicao, tamanho;
-    while (fscanf(arquivo, "Posição: %d   Tamanho: %d", &posicao, &tamanho) == 2) {
-        criarEstruturaAuxiliar(posicao, tamanho);
+    int posicao, tamanho, qtd, valor;
 
-        int valor;
-        while (fscanf(arquivo, "%d", &valor) == 1) {
-            inserirNumeroEmEstrutura(posicao, valor);
+    while (fscanf(arquivo, "Posição: %d   Elementos:", &posicao) == 1) {
+        fscanf(arquivo, " %d", &tamanho);
+        criarEstruturaAuxiliar(posicao + 1, tamanho);
+
+        for (int i = 0; i < tamanho; i++) {
+            fscanf(arquivo, " %d", &valor);
+            inserirNumeroEmEstrutura(posicao + 1, valor);
         }
     }
     fclose(arquivo);
