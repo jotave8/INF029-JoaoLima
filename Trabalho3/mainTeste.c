@@ -17,8 +17,8 @@ void testeListaEncadeada();
 
 int main(){
     inicializar();
-    //testeInicial();
-    testeFinal();
+    testeInicial();
+    //testeFinal();
     /*testeInserirSemNada();
     testeCriarEstrutura();
     testeInserirComEstrutura();

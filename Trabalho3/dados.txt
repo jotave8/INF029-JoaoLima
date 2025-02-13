@@ -1,3 +1,0 @@
-Posição: 2  Tamanho: 2  Elementos: 10 40
-Posição: 5  Tamanho: 4  Elementos: 15 25 35 60
-Posição: 9  Tamanho: 3  Elementos: 5 15 45
