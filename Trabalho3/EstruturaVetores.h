@@ -39,6 +39,7 @@ int comparar(const void *a, const void *b);
 void dobrar(int *x);
 void salvarDados();
 void carregarDados();
-
+void testeInicial();
+void testeFinal();
 
 #endif

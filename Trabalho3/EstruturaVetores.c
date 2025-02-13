@@ -322,12 +322,12 @@ void carregarDados() {
         vetorPrincipal[posicao - 1].tamanho = tamanho;
         vetorPrincipal[posicao - 1].quantidade = 0;
         for (int i = 0; i < tamanho; i++) {
-            if (fscanf(arquivo, "%d", &vetorPrincipal[posicao - 1].vetor[i]) == 1) {
+            if (fscanf(arquivo, " %d", &vetorPrincipal[posicao - 1].vetor[i]) == 1) {
                 vetorPrincipal[posicao - 1].quantidade++;
             }
         }
+        fscanf(arquivo, "\n");
     }
-
     fclose(arquivo);
     printf("Dados carregados com sucesso!\n");
 }

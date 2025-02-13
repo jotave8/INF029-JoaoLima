@@ -15,10 +15,11 @@ void testeRetornarTodosNumeros();
 void testeMudarTamanhoEstrutura();
 void testeListaEncadeada();
 
-int main()
-{
+int main(){
     inicializar();
-    testeInserirSemNada();
+    //testeInicial();
+    testeFinal();
+    /*testeInserirSemNada();
     testeCriarEstrutura();
     testeInserirComEstrutura();
     testeExcluir();
@@ -26,7 +27,7 @@ int main()
     testeListar();
     testeRetornarTodosNumeros();
     testeMudarTamanhoEstrutura();
-    testeListaEncadeada();
+    testeListaEncadeada();*/
     finalizar();
 }
 int ligado = 0;
@@ -35,6 +36,41 @@ void show_log(char *str)
     if (ligado)
         printf("###%s###\n", str);
 }
+
+void testeInicial(){
+    
+    criarEstruturaAuxiliar(2, 3);
+    criarEstruturaAuxiliar(5, 5);
+    criarEstruturaAuxiliar(9, 4);
+
+    inserirNumeroEmEstrutura(2, 10);
+    inserirNumeroEmEstrutura(2, 20);
+
+    inserirNumeroEmEstrutura(5, 15);
+    inserirNumeroEmEstrutura(5, 25);
+    inserirNumeroEmEstrutura(5, 35);
+    inserirNumeroEmEstrutura(5, 45);
+
+    inserirNumeroEmEstrutura(9, 5);
+    inserirNumeroEmEstrutura(9, 15);
+    inserirNumeroEmEstrutura(9, 25);
+
+    printf("Valores de teste inseridos com sucesso!\n\n");
+}
+
+void testeFinal() {
+    printf("Inserindo novos valores para testar carregamento...\n");
+
+    excluirNumeroEspecificoDeEstrutura(2, 20);
+    excluirNumeroEspecificoDeEstrutura(5, 45);
+    excluirNumeroEspecificoDeEstrutura(9, 25);
+
+    inserirNumeroEmEstrutura(2, 40);
+    inserirNumeroEmEstrutura(5, 60);
+    inserirNumeroEmEstrutura(9, 45);
+    printf("Novos valores inseridos com sucesso!\n\n");
+}
+
 
 void testeInserirSemNada()
 {
